@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title><%= title %></title>
+
+    <script src="/javascripts/flash-helper.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" >
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+<div class="container">
+    <% if (locals.settings.env === "development") { %>
+    <!--  Development information  -->
+        <%- JSON.stringify(locals); %>
+    <% } %>
+
+    <% if (locals.messages.success && locals.messages.success.length > 0) { %>
+    <!--  Success flash messages  -->
+        <div class="alert alert-success"><%= locals.messages.success %></div>
+    <% } %>
+
+    <% if (locals.messages.error && locals.messages.error.length > 0) { %>
+    <!--  Error flash messages  -->
+        <div class="alert alert-danger"><%= locals.messages.error %></div>
+    <% } %>

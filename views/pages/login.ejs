@@ -1,0 +1,16 @@
+<%- include('../partials/header', { title: title }) %>
+
+<h1>Login</h1>
+<p>Please login to view the content...</p>
+
+<form action="" method="POST">
+    <label class="form-label" for="username">Username:</label>
+    <input class="form-control" type="text" id="username" name="username" autocomplete="username" autofocus>
+    <label class="form-label" for="password">Password:</label>
+    <input class="form-control" type="password" id="password" name="password" autocomplete="password">
+    <button class="btn btn-primary" type="submit">Login</button>
+</form>
+
+<button class="btn btn-link" id="newAccountButton">Create New Account</button>
+
+<%- include('../partials/footer') %>

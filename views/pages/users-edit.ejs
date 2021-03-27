@@ -1,0 +1,16 @@
+<%- include('../partials/header', { title: title }) %>
+
+<h1>Edit Account</h1>
+
+<form id="formElem" action="/users/<%= user.u_id %>" method="POST">
+    <label class="form-label" for="u_id">User ID:</label>
+    <input class="form-control-plaintext" type="text" id="u_id" name="u_id" value="<%= user.u_id %>" readonly />
+    <label class="form-label" for="username">Username:</label>
+    <input class="form-control" type="text" id="username" name="username" value="<%= user.username %>" autocomplete="username" required />
+    <label class="form-label" for="password">Password:</label>
+    <input class="form-control" type="text" id="password" name="password" placeholder="Enter New Password..." autocomplete="new-password" required />
+    <button class="btn btn-secondary" id="cancelButton">Cancel</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+<%- include('../partials/footer') %>

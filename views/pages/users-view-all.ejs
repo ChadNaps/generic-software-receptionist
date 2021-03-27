@@ -1,0 +1,36 @@
+<%- include('../partials/header', { title: title }) %>
+<%- include('../partials/navbar') %>
+
+<h3>Database Contains The Following <%= data.length %> Accounts</h3>
+<input class="btn btn-secondary" type="button" value="Create New Account" onclick="location.href = 'users/new'" />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Interactions</th>
+            <th scope="col">u_id</th>
+            <th scope="col">username</th>
+            <th scope="col">password_hash</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (row of data) { %>
+            <tr>
+                <td>
+                    <form id="formElem" action="javascript:void(0);" method="POST">
+                        <input type="text" name="user" value="<%= JSON.stringify(row) %>" hidden />
+                        <div class="btn-group-vertical btn-group-sm">
+                            <input class="btn btn-outline-primary" type="button" value="View" onclick="location.href = 'users/<%= row.u_id %>'"/>
+                            <input class="btn btn-outline-secondary" type="submit" value="Edit" formaction="users/<%= row.u_id %>/edit" />
+                            <input class="btn btn-outline-danger" type="submit" value="Delete" formaction="users/delete" />
+                        </div>
+                    </form>
+                </td>
+                <td><%= row.u_id %></td>
+                <td><%= row.username %></td>
+                <td><%= row.password_hash %></td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<%- include('../partials/footer') %>

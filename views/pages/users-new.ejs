@@ -1,0 +1,23 @@
+// noinspection JSUnresolvedVariable
+
+<%- include('../partials/header', { title: title }) %>
+
+<h1>Create New Account</h1>
+
+<form action="/users/new" method="POST">
+    <label class="form-label" for="u_id">User ID:</label>
+    <input class="form-control-plaintext" type="text" id="u_id" name="u_id" value="<%= u_id %>" readonly />
+    <label class="form-label" for="username">Username:</label>
+    <input class="form-control" type="text" id="username" name="username" placeholder="Username" required autofocus autocomplete="username" />
+    <div class="invalid-feedback"><p></p></div>
+    <label class="form-label" for="password1">Password:</label>
+    <input class="form-control" type="password" id="password1" name="password1" placeholder="Password" required autocomplete="new-password"/>
+    <div id="pw1Invalid" class="invalid-feedback"></div>
+    <label class="form-label" for="password2">Confirm Password:</label>
+    <input class="form-control" type="password" id="password2" name="password2" placeholder="Confirm Password" required autocomplete="new-password"/>
+    <div id="pw2Invalid" class="invalid-feedback"></div>
+    <button class="btn btn-secondary" id="cancelButton">Cancel</button>
+    <button class="btn btn-primary" id="submitButton" type="submit">Submit</button>
+</form>
+
+<%- include('../partials/footer') %>

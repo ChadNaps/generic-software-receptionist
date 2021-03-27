@@ -1,0 +1,46 @@
+[] Create user database
+    [] Look into apis for insurance submissions
+        [x] Inquiries sent
+        [] Responses received
+    [x] Create full CRUD for user database
+        [] Appointments
+            [] View All Appointment
+                [] View
+                [] Controller
+            [] View One Appointment
+                [] View
+                [] Controller
+            [] Create New Appointment
+                [] View
+                [] Controller
+            [] Update One Appointment
+                [] View
+                [] Controller
+            [] Delete One Appointment
+                [] View
+                [] Controller
+        [x] Users
+            [x] View All Users
+                [x] View
+                [x] Controller
+            [x] View One User
+                [x] View
+                [x] Controller
+            [x] Create New User
+                [x] View
+                [x] Controller
+            [x] Update One User
+                [x] View
+                [x] Controller
+            [x] Delete One User
+                [x] View
+                [x] Controller
+
+[] Create Scheduling Functionality
+    [] Make Scheduling Route
+        [] ???
+    []
+
+[x] Add Flash Messages
+
+[] Ensure Login for All Routes

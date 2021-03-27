@@ -1,0 +1,17 @@
+<%- include('../partials/header', { title: title }) %>
+
+<h3>Delete This Account?</h3>
+<p><b>User ID:</b> <%= user.u_id %></p>
+<p><b>Username:</b> <%= user.username %></p>
+<button class="btn btn-secondary" type="button" id="cancelButton">Cancel</button>
+<button class="btn btn-primary" type="button" id="confirmButton">Confirm</button>
+
+<script>
+    // Had to rebuild user object for use in scripts.js
+    const user = {
+        u_id: '<%= user.u_id %>',
+        username: '<%= user.username %>'
+    }
+</script>
+
+<%- include('../partials/footer') %>
