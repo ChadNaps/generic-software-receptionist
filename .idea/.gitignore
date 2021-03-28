@@ -3,3 +3,10 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+/.name
+/runConfigurations/bin_www.xml
+/generic-software-receptionist.iml
+/jsLibraryMappings.xml
+/modules.xml
+/vcs.xml
+/watcherTasks.xml
