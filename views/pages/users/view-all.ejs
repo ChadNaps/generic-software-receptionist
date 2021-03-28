@@ -1,5 +1,5 @@
-<%- include('../partials/header', { title: title }) %>
-<%- include('../partials/navbar') %>
+<%- include('../../partials/header', { title: title }) %>
+<%- include('../../partials/navbar') %>
 
 <h3>Database Contains The Following <%= data.length %> Accounts</h3>
 <input class="btn btn-secondary" type="button" value="Create New Account" onclick="location.href = 'users/new'" />
@@ -33,4 +33,4 @@
     </tbody>
 </table>
 
-<%- include('../partials/footer') %>
+<%- include('../../partials/footer') %>

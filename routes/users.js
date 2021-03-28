@@ -21,13 +21,13 @@ router.get('/', function(req, res, next) {
             return 0;
         });
 
-        res.render('pages/users-view-all', { title: 'View All Accounts', data: data });
+        res.render('pages/users/view-all', { title: 'View All Accounts', data: data });
     });
 });
 
 /* Create New User Page */
 router.get('/new', (req, res) => {
-    res.render('pages/users-new', { title: 'Create New Account', u_id: req.app.locals.uniqID() });
+    res.render('pages/users/new', { title: 'Create New Account', u_id: req.app.locals.uniqID() });
 });
 
 /* Create New User */
@@ -83,14 +83,14 @@ router.get('/:id', (req, res, next) => {
         if (!row) {
             next(createError("User ID Not Found"));
         } else {
-            res.render('pages/users-view-one', { title: 'View Account', user: row });
+            res.render('pages/users/view-one', { title: 'View Account', user: row });
         }
     });
 });
 
 /* Edit User Page */
 router.post('/:id/edit', (req, res) => {
-    res.render('pages/users-edit', { title: 'Edit Account', user: JSON.parse(req.body.user) });
+    res.render('pages/users/edit', { title: 'Edit Account', user: JSON.parse(req.body.user) });
 });
 
 /* Edit User */
@@ -121,7 +121,7 @@ router.put('/:id', (req, res, next) => {
 
 /* Delete User Page */
 router.post('/delete', (req, res) => {
-    res.render('pages/users-delete', { title: 'Delete Account', user: JSON.parse(req.body.user) })
+    res.render('pages/users/delete', { title: 'Delete Account', user: JSON.parse(req.body.user) })
 });
 
 /* Delete User */
