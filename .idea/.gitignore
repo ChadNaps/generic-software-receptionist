@@ -1,9 +1,0 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-
-# Recommended ignored files from "https://stackoverflow.com/questions/11968531/what-to-gitignore-from-the-idea-folder"
-**/.idea/workspace.xml
-**/.idea/tasks.xml
