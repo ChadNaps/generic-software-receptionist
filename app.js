@@ -11,6 +11,8 @@ const uniqID = require('uniqid');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const flash = require("express-flash");
+const ical = require("ical-generator");
+const cal = ical();
 
 // Database Setup
 const sqlite3 = require('sqlite3').verbose();
