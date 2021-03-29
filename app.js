@@ -26,6 +26,7 @@ const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) =
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
+const appointmentsRouter = require('./routes/appointments');
 
 // Start Express
 const app = express();
@@ -39,7 +40,7 @@ app.locals.uniqID = uniqID; // Unique User IDs
 
 // TODO - Set to production before launch
 // Set Environment Variable
-app.set("env", "testing"); // development || testing || production
+app.set("env", "development"); // development || testing || production
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -71,6 +72,7 @@ app.use(flash());
 // Routes
 app.use('/', loginRouter, indexRouter);
 app.use('/users', loginRouter, usersRouter);
+app.use('/appointments', loginRouter, appointmentsRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

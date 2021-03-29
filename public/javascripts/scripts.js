@@ -24,6 +24,9 @@ if (navBar) {
                         child.setAttribute("href", "/");
                         break;
 
+                    case "View All Appointments":
+                        child.setAttribute("href", "/appointments");
+
                     case "View All Accounts":
                         child.setAttribute("href", "/users");
                         break;
