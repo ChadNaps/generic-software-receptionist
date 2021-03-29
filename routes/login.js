@@ -1,5 +1,3 @@
-// noinspection JSUnresolvedFunction
-
 const express = require('express');
 const router = express.Router();
 
@@ -26,7 +24,6 @@ router.post('/', (req, res, next) => {
             next(err);
         }
 
-        // noinspection JSUnresolvedVariable
         req.app.locals.bcrypt.compare(password, row.password_hash, (err, result) => {
             if (err) {
                 next(err);
@@ -34,7 +31,6 @@ router.post('/', (req, res, next) => {
                 next(createError(401, "Wrong username or password"))
             } else {
                 req.session.username = username;
-                // noinspection JSUnresolvedVariable
                 req.session.password = row.password_hash;
                 console.log(`User ${username} has just logged in!`);
                 req.flash("success", `You are now logged in as: ${username}!`);
