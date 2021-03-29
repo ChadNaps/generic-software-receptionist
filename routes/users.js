@@ -35,7 +35,7 @@ router.post('/new', (req, res, next) => {
     // TODO - Add server-side data validation
     const db = req.app.locals.db;
     const createError = req.app.locals.createError;
-    let query = "INSERT INTO authentication VALUES (?, ?, ?)";
+    let query = "INSERT INTO authentication VALUES (?, ?, ?, ?)";
 
     // Check if user already exists
     db.get("SELECT username FROM authentication WHERE username = ?", req.body.username, (err, row) => {
@@ -55,7 +55,7 @@ router.post('/new', (req, res, next) => {
             req.flash("error", err.message);
             next(err);
         } else {
-            db.run(query, [req.body.u_id, req.body.username, hash], (err) => {
+            db.run(query, [req.body.u_id, req.body.username, hash, req.body.role], (err) => {
                 if (err) {
                     req.flash("error", err.message);
                     next(err);
@@ -96,27 +96,49 @@ router.post('/:id/edit', (req, res) => {
 /* Edit User */
 router.put('/:id', (req, res, next) => {
     const db = req.app.locals.db;
-    let query = "UPDATE authentication " +
-        "SET username = ?, password_hash = ? " +
-        "WHERE u_id = ?";
 
-    req.app.locals.bcrypt.hash(req.body.data.password, req.app.locals.saltRounds, (err, hash) => {
-        if (err) {
-            next(err);
-        } else {
-            db.run(query,[req.body.data.username, hash, req.body.data.u_id], (err) => {
-                if (err) {
-                    req.flash("error", err.message);
-                    next(err);
-                } else {
-                    req.flash("success", "User Successfully Edited");
+    // Password is to be retained
+    if (req.body.data.password === "") {
+        let query = "UPDATE authentication " +
+            "SET username = ?, role = ? " +
+            "WHERE u_id = ?";
 
-                    // scripts.js uses this responseURL to redirect with a get request to the base route
-                    res.send({responseURL: `${req.protocol}://${req.get('host')}${req.baseUrl}`});
-                }
-            });
-        }
-    });
+        db.run(query,[req.body.data.username, req.body.data.role, req.body.data.u_id], (err) => {
+            if (err) {
+                req.flash("error", err.message);
+                next(err);
+            } else {
+                req.flash("success", "User Successfully Edited - Password Retained");
+
+                // scripts.js uses this responseURL to redirect with a get request to the base route
+                res.send({responseURL: `${req.protocol}://${req.get('host')}${req.baseUrl}`});
+            }
+        });
+    } else { // Password is to be changed
+        let query = "UPDATE authentication " +
+            "SET username = ?, password_hash = ?, role = ? " +
+            "WHERE u_id = ?";
+
+        req.app.locals.bcrypt.hash(req.body.data.password, req.app.locals.saltRounds, (err, hash) => {
+            if (err) {
+                next(err);
+            } else {
+                db.run(query,[req.body.data.username, hash, req.body.data.role, req.body.data.u_id], (err) => {
+                    if (err) {
+                        req.flash("error", err.message);
+                        next(err);
+                    } else {
+                        req.flash("success", "User Successfully Edited");
+
+                        // scripts.js uses this responseURL to redirect with a get request to the base route
+                        res.send({responseURL: `${req.protocol}://${req.get('host')}${req.baseUrl}`});
+                    }
+                });
+            }
+        });
+    }
+
+
 });
 
 /* Delete User Page */

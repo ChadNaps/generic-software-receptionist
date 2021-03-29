@@ -3,6 +3,7 @@
 <h3>Delete This Account?</h3>
 <p><b>User ID:</b> <%= user.u_id %></p>
 <p><b>Username:</b> <%= user.username %></p>
+<p><b>Role:</b> <%= user.role %></p>
 <button class="btn btn-secondary" type="button" id="cancelButton">Cancel</button>
 <button class="btn btn-primary" type="button" id="confirmButton">Confirm</button>
 
@@ -10,7 +11,8 @@
     // Had to rebuild user object for use in scripts.js
     const user = {
         u_id: '<%= user.u_id %>',
-        username: '<%= user.username %>'
+        username: '<%= user.username %>',
+        role: '<%= user.role %>'
     }
 </script>
 

@@ -7,8 +7,13 @@
     <input class="form-control-plaintext" type="text" id="u_id" name="u_id" value="<%= user.u_id %>" readonly />
     <label class="form-label" for="username">Username:</label>
     <input class="form-control" type="text" id="username" name="username" value="<%= user.username %>" autocomplete="username" required />
+    <label class="form-label">Role:</label> <br>
+    <input type="radio" id="client" name="role" value="client" required <% if (user.role === "client") { %> checked <% } %>>
+    <label class="form-label" for="client">Client</label> <br>
+    <input type="radio" id="admin" name="role" value="admin" required <% if (user.role === "admin") { %> checked <% } %>>
+    <label class="form-label" for="admin">Admin</label> <br>
     <label class="form-label" for="password">Password:</label>
-    <input class="form-control" type="text" id="password" name="password" placeholder="Enter New Password..." autocomplete="new-password" required />
+    <input class="form-control" type="text" id="password" name="password" placeholder="Leave blank to retain previous password..." autocomplete="new-password" />
     <button class="btn btn-secondary" id="cancelButton">Cancel</button>
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>

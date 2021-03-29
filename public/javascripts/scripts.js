@@ -54,6 +54,7 @@ if (document.title === "Create New Account") {
     const submitBtn = document.getElementById("submitButton");
     const cancelBtn = document.getElementById("cancelButton");
     const form = document.getElementsByTagName("form")[0];
+    const invalidRadioDiv = document.getElementById("invalidRadioDiv");
 
     // Submit Button
     submitBtn.addEventListener("click", (event) => {
@@ -75,12 +76,16 @@ if (document.title === "Create New Account") {
         // Check validity of form elements
         for (element of form) {
             if (!element.checkValidity()) {
-                element.nextElementSibling.innerText = element.validationMessage;
+                if (element.type !== "radio") {
+                    element.nextElementSibling.innerText = element.validationMessage;
+                } else {
+                    invalidRadioDiv.innerText = element.validationMessage;
+                }
             }
         }
 
         // If all's clear, submit!
-        if (pw1.validity.valid && pw2.validity.valid && pw1.innerText === pw2.innerText) {
+        if (pw1.validity.valid && pw2.validity.valid && pw1.innerText === pw2.innerText && form.checkValidity()) {
             form.submit();
         }
     });
