@@ -8,7 +8,9 @@
             <div class="navbar-nav">
                 <a class="nav-link active" id="Homepage" aria-current="page" href="">Home</a>
                 <a class="nav-link" id="View All Appointments" href="/appointments">Appointments</a>
-                <a class="nav-link" id="View All Accounts" href="/users">Admin Panel</a>
+                <% if (locals.role === "admin") { %>
+                    <a class="nav-link" id="View All Accounts" href="/users">Admin Panel</a>
+                <% } %>
             </div>
         </div>
     </div>

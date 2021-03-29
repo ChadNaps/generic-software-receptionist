@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
 
     let username = req.body.username;
     let password = req.body.password;
-    let query = `SELECT username, password_hash FROM authentication WHERE username = ?`;
+    let query = `SELECT username, password_hash, role FROM authentication WHERE username = ?`;
     const db = req.app.locals.db;
     const createError = req.app.locals.createError;
 
@@ -32,6 +32,7 @@ router.post('/', (req, res, next) => {
             } else {
                 req.session.username = username;
                 req.session.password = row.password_hash;
+                req.session.role = row.role;
                 console.log(`User ${username} has just logged in!`);
                 req.flash("success", `You are now logged in as: ${username}!`);
                 res.redirect(req.app.locals.path);
