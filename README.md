@@ -27,7 +27,7 @@ This is the codebase for a web application created for anyone's general use in o
   * Google Authentication
   * Apple Authentication
 * Appointment Confirmation Notifications
-* Notification System - to inform Stacey of changes instantly
+* Notification System - to inform user of changes instantly
 * Payment through app
 
 ## Technologies to Use:
