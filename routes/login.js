@@ -13,7 +13,6 @@ router.get('/', function (req, res, next) {
 /* POST login page. */
 router.post('/', (req, res, next) => {
     // If no session exists, create one
-    console.log(req.session);
     if (!req.session.username || !req.session.password) {
         let username = req.body.username;
         let password = req.body.password;
@@ -26,20 +25,26 @@ router.post('/', (req, res, next) => {
                 next(err);
             }
 
-            req.app.locals.bcrypt.compare(password, row.password_hash, (err, result) => {
-                if (err) {
-                    next(err);
-                } else if (!result) {
-                    next(createError(401, "Wrong username or password"))
-                } else {
-                    req.session.username = username;
-                    req.session.password = row.password_hash;
-                    req.session.role = row.role;
-                    console.log(`User ${username} has just logged in!`);
-                    req.flash("success", `You are now logged in as: ${username}!`);
-                    res.redirect(req.app.locals.path);
-                }
-            });
+            if (!row) {
+                req.flash("error", "Incorrect username or password.");
+                res.redirect(req.originalUrl);
+            } else {
+                req.app.locals.bcrypt.compare(password, row.password_hash, (err, result) => {
+                    if (err) {
+                        next(err);
+                    } else if (!result) {
+                        req.flash("error", "Incorrect username or password");
+                        res.redirect(req.originalUrl);
+                    } else {
+                        req.session.username = username;
+                        req.session.password = row.password_hash;
+                        req.session.role = row.role;
+                        console.log(`User ${username} has just logged in!`);
+                        req.flash("success", `You are now logged in as: ${username}!`);
+                        res.redirect(req.originalUrl);
+                    }
+                });
+            }
         });
     } else { // If session exists, destroy it to log user out
         req.session.regenerate(err => {
