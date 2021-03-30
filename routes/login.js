@@ -36,7 +36,7 @@ router.get('/login', (req, res) => {
 });
 
 /* POST login page */
-router.post('/', (req, res, next) => {
+router.post('/login', (req, res, next) => {
     const redirect = function () {
         if (req.originalUrl === "/login") {
             res.redirect('/');
