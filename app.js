@@ -63,9 +63,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // FIXME - Make better secret
 app.use(session({resave: false, saveUninitialized: true, secret: "badSecret"}));
 app.use((req, res, next) => {
-    // Used to route properly in the loginRouter
-    app.locals.path = req.path;
-
     // Give all views access to role of logged in user
     if (!app.locals.role || app.locals.role !== req.session.role) {
         app.locals.role = req.session.role;
