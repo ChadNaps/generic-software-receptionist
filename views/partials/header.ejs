@@ -16,8 +16,28 @@
 <body>
 <div class="container">
     <% if (locals.settings.env === "development") { %>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#devInfo" role="button">Show locals</a>
     <!--  Development information  -->
-        <%- JSON.stringify(locals); %>
+        <div class="collapse" id="devInfo">
+            <div class="card card-body">
+                <% for (let item in locals) { %>
+                    <% if (typeof locals[item] === "string" || typeof locals[item] === "boolean" || typeof locals[item] === "number") { %>
+                        <%= item %>: <%= locals[item] %> <br>
+                    <% } else if (typeof locals[item] === "object") { %>
+                        <% if (Object.keys(locals[item]).length === 0) { %>
+                            <%= item %>: empty <br>
+                        <% } else { %>
+                            <%= item %>: <br>
+                        <% } %>
+                        <% for (let elem in locals[item]) { %>
+                            <% if (typeof locals[item][elem] === "string" || typeof locals[item][elem] === "boolean" || typeof locals[item][elem] === "number") { %>
+                                ----<%= elem %>: <%= locals[item][elem] %> <br>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
     <% } %>
 
     <% if (locals.messages.success && locals.messages.success.length > 0) { %>
