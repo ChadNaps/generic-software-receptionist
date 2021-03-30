@@ -24,15 +24,17 @@
                     <% if (typeof locals[item] === "string" || typeof locals[item] === "boolean" || typeof locals[item] === "number") { %>
                         <%= item %>: <%= locals[item] %> <br>
                     <% } else if (typeof locals[item] === "object") { %>
-                        <% if (Object.keys(locals[item]).length === 0) { %>
-                            <%= item %>: empty <br>
+                        <% if (locals[item] && Object.keys(locals[item]).length === 0 && locals[item].constructor === Object) { %>
+                            <%= item %>: <%= JSON.stringify(locals[item]) %>  <br>
                         <% } else { %>
                             <%= item %>: <br>
                         <% } %>
                         <% for (let elem in locals[item]) { %>
                             <% if (typeof locals[item][elem] === "string" || typeof locals[item][elem] === "boolean" || typeof locals[item][elem] === "number") { %>
                                 ----<%= elem %>: <%= locals[item][elem] %> <br>
-                            <% } %>
+                            <% } else if (typeof locals[item][elem] === "object") { %>
+                                ----<%= elem %>: <%= JSON.stringify(locals[item][elem]) %> <br>
+                                <% } %>
                         <% } %>
                     <% } %>
                 <% } %>
