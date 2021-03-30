@@ -1,5 +1,3 @@
-// noinspection JSCheckFunctionSignatures,JSUnresolvedVariable
-
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -96,9 +94,7 @@ app.use(function (err, req, res, next) {
 
 
     // Render the error page
-    // noinspection JSUnresolvedFunction
     res.status(err.status || 500);
-    // noinspection JSUnresolvedFunction
     res.render('pages/error');
 });
 
