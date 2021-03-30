@@ -13,6 +13,10 @@
                 <% } %>
             </div>
         </div>
-        <button class="btn btn-outline-light link-light" id="logoutBtn">Logout</button>
+        <% if (locals.role) { %>
+           <button class="btn btn-outline-light link-light" id="logoutBtn">Logout</button>
+        <% } else { %>
+            <button class="btn btn-outline-light link-light" id="loginBtn">Login</button>
+        <% } %>
     </div>
 </nav>

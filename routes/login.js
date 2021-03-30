@@ -1,52 +1,85 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET login page. */
-router.get('/', function (req, res, next) {
-    if (req.session.password && req.session.username) {
-        return next();
-    } else {
+// Auth functions
+const authAdmin = function (req, res, next) {
+    // If not logged in, log in
+    if (!req.session.password || !req.session.username || !req.session.role) {
         res.render('pages/login', { title: 'Login' });
+    // If logged in as admin, next
+    } else if (req.session.password && req.session.username && req.session.role === "admin") {
+        return next();
+    // If logged in as anything but admin, throw error
+    } else {
+        return next(req.app.locals.createError(401, "You are not authorized to view this content."));
     }
+};
+const authClient = function (req, res, next) {
+    // If not logged in, log in
+    if (!req.session.password || !req.session.username || !req.session.role) {
+        res.render('pages/login', { title: 'Login' });
+    // If logged in as any role, next
+    } else {
+        return next();
+    }
+};
+
+/* GET users route - Check user is admin on all /users routes except /users/new */
+router.get(/^\/users(?!\/new).*$/gm, authAdmin);
+
+/* GET appointments route */
+router.get('/appointments', authClient);
+
+/* GET login page */
+router.get('/login', (req, res) => {
+    res.render('pages/login', { title: 'Login' });
 });
 
-/* POST login page. */
+/* POST login page */
 router.post('/', (req, res, next) => {
+    const redirect = function () {
+        if (req.originalUrl === "/login") {
+            res.redirect('/');
+        } else {
+            res.redirect(req.originalUrl);
+        }
+    }
+
     // If no session exists, create one
-    if (!req.session.username || !req.session.password) {
+    if (!req.session.username || !req.session.password || !req.session.role) {
         let username = req.body.username;
         let password = req.body.password;
         let query = `SELECT username, password_hash, role FROM authentication WHERE username = ?`;
         const db = req.app.locals.db;
-        const createError = req.app.locals.createError;
 
         db.get(query, [username], (err, row) => {
             if (err) {
-                next(err);
+                return next(err);
             }
 
             if (!row) {
                 req.flash("error", "Incorrect username or password.");
-                res.redirect(req.originalUrl);
+                redirect();
             } else {
                 req.app.locals.bcrypt.compare(password, row.password_hash, (err, result) => {
                     if (err) {
                         next(err);
                     } else if (!result) {
-                        req.flash("error", "Incorrect username or password");
-                        res.redirect(req.originalUrl);
+                        req.flash("error", "Incorrect username or password.");
+                        redirect();
                     } else {
                         req.session.username = username;
                         req.session.password = row.password_hash;
                         req.session.role = row.role;
                         console.log(`User ${username} has just logged in!`);
                         req.flash("success", `You are now logged in as: ${username}!`);
-                        res.redirect(req.originalUrl);
+                        redirect();
                     }
                 });
             }
         });
-    } else { // If session exists, destroy it to log user out
+    // If session exists, destroy it to log user out
+    } else {
         req.session.regenerate(err => {
             if (err) {
                 next(err);

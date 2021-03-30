@@ -41,21 +41,37 @@ if (navbar) {
     // Logout Button
     const logoutBtn = document.getElementById("logoutBtn");
 
-    logoutBtn.addEventListener("click", () => {
-        axios.post('/login').then( response => {
-            location.href = response.data.responseURL;
-        }).catch(error => {
-            console.error(error);
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            axios.post('/login').then(response => {
+                location.href = response.data.responseURL;
+            }).catch(error => {
+                console.error(error);
+            });
         });
-    });
+    }
+
+    // Login Button
+    const loginBtn = document.getElementById("loginBtn");
+
+    if (loginBtn) {
+        loginBtn.addEventListener("click", () => {
+            location.href = '/login';
+        });
+    }
 }
 
 // Page specific scripts
 if (document.title === "Login") {
     const newAccountBtn = document.getElementById("newAccountButton");
+    const cancelBtn = document.getElementById("cancelButton");
 
     newAccountBtn.addEventListener("click", () => {
         location.href = 'users/new';
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        location.href = '/';
     });
 }
 
