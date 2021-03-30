@@ -80,6 +80,7 @@ app.use(flash());
 // Routes
 app.use('/', loginRouter, indexRouter);
 app.use('/users', loginRouter, usersRouter);
+app.use('/login', loginRouter);
 app.use('/appointments', loginRouter, appointmentsRouter);
 
 // Catch 404 and forward to error handler

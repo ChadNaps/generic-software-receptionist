@@ -1,10 +1,10 @@
 // Global scripts
-const navBar = document.getElementsByClassName("navbar-nav")[0];
+const navbar = document.getElementById("navbar");
 
 // NavBar Handler
-if (navBar) {
+if (navbar) {
     // Logic for active link in navbar
-    for (const child of navBar.children) {
+    for (const child of navbar.children) {
         if (child.id === document.title) {
             if (!child.classList.contains("active")) {
                 child.classList.add("active");
@@ -37,6 +37,17 @@ if (navBar) {
             }
         }
     }
+
+    // Logout Button
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    logoutBtn.addEventListener("click", () => {
+        axios.post('/login').then( response => {
+            location.href = response.data.responseURL;
+        }).catch(error => {
+            console.error(error);
+        });
+    });
 }
 
 // Page specific scripts
