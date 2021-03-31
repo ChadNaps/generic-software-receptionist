@@ -35,29 +35,31 @@ router.post('/new', (req, res, next) => {
     // TODO - Add server-side data validation
     const db = req.app.locals.db;
     const createError = req.app.locals.createError;
-    let query = "INSERT INTO authentication VALUES (?, ?, ?, ?)";
+    const query = "INSERT INTO authentication VALUES (?, ?, ?, ?)";
 
     // Check if user already exists
     db.get("SELECT username FROM authentication WHERE username = ?", req.body.username, (err, row) => {
         if (err) {
-            req.flash("error", err.message);
             next(err);
         }
 
         if (row) {
-            next(createError(409, "That username already exists"));
+            req.flash("error", "Username already exists.");
+            res.redirect(req.originalUrl);
         }
     });
 
     // Create new user
     req.app.locals.bcrypt.hash(req.body.password1, req.app.locals.saltRounds, (err, hash) => {
         if (err) {
-            req.flash("error", err.message);
             next(err);
         } else {
-            db.run(query, [req.body.u_id, req.body.username, hash, req.body.role], (err) => {
+            let role = req.body.role;
+            if (!req.body.role) {
+                role = "client";
+            }
+            db.run(query, [req.body.u_id, req.body.username, hash, role], (err) => {
                 if (err) {
-                    req.flash("error", err.message);
                     next(err);
                 } else {
                     req.flash("success", `Successfully created user: ${req.body.username}`);
