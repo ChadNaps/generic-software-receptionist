@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Auth functions
+// Authentication functions
 const authAdmin = function (req, res, next) {
     // If not logged in, log in
     if (!req.session.password || !req.session.username || !req.session.role) {
@@ -24,10 +24,10 @@ const authClient = function (req, res, next) {
     }
 };
 
-/* GET users route - Check user is admin on all /users routes except /users/new */
+/* Authentication for users route - Check user is admin on all /users routes except /users/new */
 router.get(/^\/users(?!\/new).*$/gm, authAdmin);
 
-/* GET appointments route */
+/* Authentication for appointments route */
 router.get('/appointments', authClient);
 
 /* GET login page */

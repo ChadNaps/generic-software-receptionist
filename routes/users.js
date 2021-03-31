@@ -149,7 +149,7 @@ router.post('/delete', (req, res) => {
 });
 
 /* Delete User */
-router.delete("/:id", (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
 const db = req.app.locals.db;
     const query = "DELETE FROM authentication WHERE u_id = ?";
 
