@@ -5,7 +5,7 @@ const navbar = document.getElementById("navbar");
 if (navbar) {
     // Logic for active link in navbar
     for (const child of navbar.children) {
-        if (child.id === document.title) {
+        if (document.title.includes(child.id)) {
             if (!child.classList.contains("active")) {
                 child.classList.add("active");
             }
