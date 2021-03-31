@@ -8,7 +8,7 @@ const authAdmin = function (req, res, next) {
         res.render('pages/login', { title: 'Login' });
     // If logged in as admin, next
     } else if (req.session.password && req.session.username && req.session.role === "admin") {
-        return next();
+        next();
     // If logged in as anything but admin, throw error
     } else {
         return next(req.app.locals.createError(401, "You are not authorized to view this content."));
@@ -39,7 +39,7 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
     const redirect = function () {
         if (req.originalUrl === "/login") {
-            res.redirect('/');
+            res.redirect(req.app.locals.authHelper);
         } else {
             res.redirect(req.originalUrl);
         }

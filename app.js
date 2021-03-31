@@ -37,6 +37,7 @@ app.locals.db = db; // Database access
 app.locals.bcrypt = bcrypt; // Password encryption
 app.locals.saltRounds = saltRounds; // Password salt
 app.locals.uniqID = uniqID; // Unique User IDs
+app.locals.authHelper = ""; // Initialize for auth routing
 
 // TODO - Set to production before launch
 // Set Environment Variable
@@ -63,6 +64,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // FIXME - Make better secret
 app.use(session({resave: false, saveUninitialized: true, secret: "badSecret"}));
 app.use((req, res, next) => {
+    // Authentication helper
+    if (req.originalUrl !== '/login') {
+        req.app.locals.authHelper = req.originalUrl;
+    }
+
     // Give all views access to role of logged in user
     if (!app.locals.role || app.locals.role !== req.session.role) {
         app.locals.role = req.session.role;
