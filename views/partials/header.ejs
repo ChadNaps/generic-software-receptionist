@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><%= title %></title>
 
@@ -14,40 +15,40 @@
 </head>
 
 <body>
-<div class="container">
-    <% if (locals.settings.env === "development") { %>
+<div class="container mt-5">
+<% if (locals.settings.env === "development") { %>
     <a class="btn btn-primary" data-bs-toggle="collapse" href="#devInfo" role="button">Show locals</a>
     <!--  Development information  -->
-        <div class="collapse" id="devInfo">
-            <div class="card card-body">
-                <% for (let item in locals) { %>
-                    <% if (typeof locals[item] === "string" || typeof locals[item] === "boolean" || typeof locals[item] === "number") { %>
-                        <%= item %>: <%= locals[item] %> <br>
-                    <% } else if (typeof locals[item] === "object") { %>
-                        <% if (locals[item] && Object.keys(locals[item]).length === 0 && locals[item].constructor === Object) { %>
-                            <%= item %>: <%= JSON.stringify(locals[item]) %>  <br>
-                        <% } else { %>
-                            <%= item %>: <br>
-                        <% } %>
-                        <% for (let elem in locals[item]) { %>
-                            <% if (typeof locals[item][elem] === "string" || typeof locals[item][elem] === "boolean" || typeof locals[item][elem] === "number") { %>
-                                ----<%= elem %>: <%= locals[item][elem] %> <br>
-                            <% } else if (typeof locals[item][elem] === "object") { %>
-                                ----<%= elem %>: <%= JSON.stringify(locals[item][elem]) %> <br>
-                                <% } %>
+    <div class="collapse" id="devInfo">
+        <div class="card card-body">
+            <% for (let item in locals) { %>
+                <% if (typeof locals[item] === "string" || typeof locals[item] === "boolean" || typeof locals[item] === "number") { %>
+                    <%= item %>: <%= locals[item] %> <br>
+                <% } else if (typeof locals[item] === "object") { %>
+                    <% if (locals[item] && Object.keys(locals[item]).length === 0 && locals[item].constructor === Object) { %>
+                        <%= item %>: <%= JSON.stringify(locals[item]) %>  <br>
+                    <% } else { %>
+                        <%= item %>: <br>
+                    <% } %>
+                    <% for (let elem in locals[item]) { %>
+                        <% if (typeof locals[item][elem] === "string" || typeof locals[item][elem] === "boolean" || typeof locals[item][elem] === "number") { %>
+                            ----<%= elem %>: <%= locals[item][elem] %> <br>
+                        <% } else if (typeof locals[item][elem] === "object") { %>
+                            ----<%= elem %>: <%= JSON.stringify(locals[item][elem]) %> <br>
                         <% } %>
                     <% } %>
                 <% } %>
-            </div>
+            <% } %>
         </div>
-    <% } %>
+    </div>
+<% } %>
 
-    <% if (locals.messages.success && locals.messages.success.length > 0) { %>
+<% if (locals.messages.success && locals.messages.success.length > 0) { %>
     <!--  Success flash messages  -->
-        <div class="alert alert-success"><%= locals.messages.success %></div>
-    <% } %>
+    <div class="alert alert-success"><%= locals.messages.success %></div>
+<% } %>
 
-    <% if (locals.messages.error && locals.messages.error.length > 0) { %>
+<% if (locals.messages.error && locals.messages.error.length > 0) { %>
     <!--  Error flash messages  -->
-        <div class="alert alert-danger"><%= locals.messages.error %></div>
-    <% } %>
+    <div class="alert alert-danger"><%= locals.messages.error %></div>
+<% } %>

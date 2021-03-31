@@ -3,17 +3,18 @@
 
 <h3>Database Contains The Following <%= data.length %> Accounts</h3>
 <input class="btn btn-secondary" type="button" value="Create New Account" onclick="location.href = 'users/new'" />
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Interactions</th>
-            <th scope="col">u_id</th>
-            <th scope="col">username</th>
-            <th scope="col">role</th>
-            <th scope="col">password_hash</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="overflow-auto">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Interactions</th>
+                <th scope="col">u_id</th>
+                <th scope="col">username</th>
+                <th scope="col">role</th>
+                <th scope="col">password_hash</th>
+            </tr>
+        </thead>
+        <tbody>
         <% for (row of data) { %>
             <tr>
                 <td>
@@ -32,7 +33,8 @@
                 <td><%= row.password_hash %></td>
             </tr>
         <% } %>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 
 <%- include('../../partials/footer') %>
