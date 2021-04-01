@@ -9,12 +9,11 @@ const uniqID = require('uniqid');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const flash = require("express-flash");
-const ical = require("ical-generator");
-const cal = ical();
+const iCal = require("ical-generator");
 
 // Database Setup
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) => {
+const db = new sqlite3.Database(path.join(__dirname, 'models/users2.db'), (err) => {
     if (err) {
         return console.error(err.message);
     } else {
@@ -38,6 +37,7 @@ app.locals.bcrypt = bcrypt; // Password encryption
 app.locals.saltRounds = saltRounds; // Password salt
 app.locals.uniqID = uniqID; // Unique User IDs
 app.locals.authHelper = ""; // Initialize for auth routing
+app.locals.iCal = iCal; // iCalendar handling
 
 // TODO - Set to production before launch
 // Set Environment Variable
