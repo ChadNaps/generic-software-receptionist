@@ -121,7 +121,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({resave: false, saveUninitialized: true, secret: "badSecret"}));
 app.use((req, res, next) => {
     // Authentication helper
-    if (req.originalUrl !== '/login') {
+    const routeIgnore = ['/login', '/favicon.ico']
+    if (!routeIgnore.includes(req.originalUrl)) {
         req.app.locals.authHelper = req.originalUrl;
     }
 
