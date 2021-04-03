@@ -15,8 +15,7 @@ const iCal = require("ical-generator");
 // Database Setup
 const sqlite3 = require('sqlite3').verbose();
 /* Query Setup */
-const adminQuery = "SELECT role FROM authentication WHERE username = ?";
-const rowCountQuery = "SELECT COUNT(*) FROM authentication";
+const adminQuery = "SELECT role FROM authentication WHERE role = ?";
 const buildTableQuery = "CREATE TABLE authentication (" +
     "u_id TEXT PRIMARY KEY NOT NULL," +
     "username TEXT NOT NULL UNIQUE," +
@@ -24,7 +23,6 @@ const buildTableQuery = "CREATE TABLE authentication (" +
     "role TEXT NOT NULL DEFAULT 'client');";
 /* Parameters to check initialization status */
 let adminExists = false;
-let hasOneRow = false;
 /* Load DB and check if it needs to be initialized or not */
 const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) => {
     if (err) {
@@ -52,22 +50,14 @@ const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) =
         }
     }
 
-    if (row && row.role === "admin") {
+    if (row) {
         adminExists = true;
     }
-/* Check if there is only one row in DB */
-}).all(rowCountQuery, (err, rows) => {
-    if (err) {
-        return console.error(err.message);
-    }
-    if (rows === 1) {
-        hasOneRow = true;
-    }
-}, () => {
+
     const initializationQuery = "INSERT INTO authentication VALUES (?, ?, ?, ?)";
-    /* If there are more or fewer than one row and there is no admin account, assume new DB and initialize */
-    if (!hasOneRow && !adminExists) {
-        console.log("New database detected! Initializing admin account...");
+    /* If there is no admin account, create default */
+    if (!adminExists) {
+        console.log("No admin account detected! Initializing admin account...");
         bcrypt.hash("admin", saltRounds, (err, hash) => {
             if (err) {
                 return console.error(err.message);
