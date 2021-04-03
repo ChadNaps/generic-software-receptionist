@@ -16,13 +16,30 @@ const iCal = require("ical-generator");
 const sqlite3 = require('sqlite3').verbose();
 /* Query Setup */
 const adminQuery = "SELECT role FROM authentication WHERE role = ?";
-const buildTableQuery = "CREATE TABLE authentication (" +
+const buildAuthTableQuery = "CREATE TABLE authentication (" +
     "u_id TEXT PRIMARY KEY NOT NULL," +
     "username TEXT NOT NULL UNIQUE," +
     "password_hash TEXT NOT NULL," +
     "role TEXT NOT NULL DEFAULT 'client');";
+const apptTableExistsQuery = "SELECT COUNT(name) FROM sqlite_master WHERE type='table' AND name='appointments'"
+const buildApptsTableQuery = "CREATE TABLE appointments (" +
+    "u_id TEXT NOT NULL," +
+    "appt_id TEXT PRIMARY KEY NOT NULL," +
+    "start TEXT NOT NULL," +
+    "end TEXT," +
+    "timezone TEXT," +
+    "summary TEXT," +
+    "location TEXT," +
+    "geo TEXT," +
+    "organizer TEXT," +
+    "FOREIGN KEY (u_id)" +
+    "REFERENCES authentication (u_id) " +
+    "ON UPDATE CASCADE " +
+    "ON DELETE CASCADE" +
+    ");"
 /* Parameters to check initialization status */
 let adminExists = false;
+let tableExists = false;
 /* Load DB and check if it needs to be initialized or not */
 const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) => {
     if (err) {
@@ -35,14 +52,14 @@ const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) =
     if (err) {
         /* If there is no table */
         if (err.message === "SQLITE_ERROR: no such table: authentication") {
-            console.error(err.message);
-            console.log("Building table now...");
+            console.warn(err.message);
+            console.log("Building authentication table now...");
 
-            db.run(buildTableQuery, [], (err) => {
+            db.run(buildAuthTableQuery, [], (err) => {
                 if (err) {
                     return console.error(err.message);
                 } else {
-                    console.log("Table built!");
+                    console.log("Authentication table built!");
                 }
             });
         } else {
@@ -68,12 +85,31 @@ const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) =
                     } else {
                         console.log("Admin account initialized!");
                         console.log("----Login Credentials----\n" +
-                        "Username: admin\n" +
-                        "Password: admin");
+                            "Username: admin\n" +
+                            "Password: admin");
                     }
                 });
             }
         });
+    }
+/* Check if appointments table exists */
+}).get(apptTableExistsQuery, [], (err, row) => {
+    if (err) {
+        console.error(err);
+    } else {
+        tableExists = row['COUNT(name)'];
+
+        if (!tableExists) {
+            console.warn("SQLITE_ERROR: no such table: appointments");
+            console.log("Building appointments table now...")
+            db.run(buildApptsTableQuery, [], (err) => {
+                if (err) {
+                    console.error(err.message);
+                } else {
+                    console.log("Appointments table built!");
+                }
+            });
+        }
     }
 });
 
