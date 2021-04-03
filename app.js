@@ -1,3 +1,4 @@
+// Requires
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -13,11 +14,76 @@ const iCal = require("ical-generator");
 
 // Database Setup
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(path.join(__dirname, 'models/users2.db'), (err) => {
+/* Query Setup */
+const adminQuery = "SELECT role FROM authentication WHERE username = ?";
+const rowCountQuery = "SELECT COUNT(*) FROM authentication";
+const buildTableQuery = "CREATE TABLE authentication (" +
+    "u_id TEXT PRIMARY KEY NOT NULL," +
+    "username TEXT NOT NULL UNIQUE," +
+    "password_hash TEXT NOT NULL," +
+    "role TEXT NOT NULL DEFAULT 'client');";
+/* Parameters to check initialization status */
+let adminExists = false;
+let hasOneRow = false;
+/* Load DB and check if it needs to be initialized or not */
+const db = new sqlite3.Database(path.join(__dirname, 'models/users.db'), (err) => {
     if (err) {
         return console.error(err.message);
     } else {
-        console.log("Connected to users database.");
+        console.log("Connected to users database");
+    }
+/* Check if admin account exists */
+}).get(adminQuery, ["admin"], (err, row) => {
+    if (err) {
+        /* If there is no table */
+        if (err.message === "SQLITE_ERROR: no such table: authentication") {
+            console.error(err.message);
+            console.log("Building table now...");
+
+            db.run(buildTableQuery, [], (err) => {
+                if (err) {
+                    return console.error(err.message);
+                } else {
+                    console.log("Table built!");
+                }
+            });
+        } else {
+            return console.error(err.message);
+        }
+    }
+
+    if (row && row.role === "admin") {
+        adminExists = true;
+    }
+/* Check if there is only one row in DB */
+}).all(rowCountQuery, (err, rows) => {
+    if (err) {
+        return console.error(err.message);
+    }
+    if (rows === 1) {
+        hasOneRow = true;
+    }
+}, () => {
+    const initializationQuery = "INSERT INTO authentication VALUES (?, ?, ?, ?)";
+    /* If there are more or fewer than one row and there is no admin account, assume new DB and initialize */
+    if (!hasOneRow && !adminExists) {
+        console.log("New database detected! Initializing admin account...");
+        bcrypt.hash("admin", saltRounds, (err, hash) => {
+            if (err) {
+                return console.error(err.message);
+            } else {
+                db.run(initializationQuery, [uniqID(), "admin", hash, "admin"], (err) => {
+                    if (err) {
+                        return console.error(err.message);
+                    } else {
+                        console.log("Admin account initialized!");
+                        console.log("----Login Credentials----\n" +
+                        "Username: admin\n" +
+                        "Password: admin");
+                    }
+                });
+            }
+        });
     }
 });
 
