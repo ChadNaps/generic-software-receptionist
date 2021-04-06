@@ -1,7 +1,8 @@
 const express = require('express');
+const apptHelper = require('../models/appointments');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     // https://www.npmjs.com/package/ical-generator
 
     // Create calendar
@@ -12,13 +13,32 @@ router.get('/', (req, res) => {
             company: "Chad Napper",
             product: "generic-software-receptionist",
             language: "EN"
-        }
+        },
+        timezone: "Etc/UTC"
     });
 
     if (req.app.locals.role === "admin") {
-        res.render('pages/appointments/view-all-admin', { title: "View All Appointments - Admin", cal: cal });
+        // Load all events from DB
+        apptHelper.load(req.app.locals.db, "admin")
+            .then(events => {
+                cal.events(events);
+                res.render('pages/appointments/view-all-admin', { title: "View All Appointments - Admin", cal: cal.events() });
+            })
+            .catch(err => {
+                console.error(err);
+                next(err);
+            });
     } else {
-        res.render('pages/appointments/view-all-client', { title: "View All Appointments", cal: cal });
+        // Load specific user events from DB
+        apptHelper.load(req.app.locals.db, req.session.username)
+            .then(events => {
+                cal.events(events);
+                res.render('pages/appointments/view-all-client', { title: "View All Appointments", cal: cal.events() });
+            })
+            .catch(err => {
+                console.error(err);
+                next(err);
+            });
     }
 });
 
