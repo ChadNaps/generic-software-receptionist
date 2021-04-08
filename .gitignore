@@ -1,5 +1,4 @@
 # Custom ignores
-TODO.txt
 models/users.db
 public/stylesheets/*.css*
 
