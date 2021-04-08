@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Chad Napper//generic-software-receptionist//EN
+NAME:Appointments
+X-WR-CALNAME:Appointments
+TIMEZONE-ID:Etc/UTC
+X-WR-TIMEZONE:Etc/UTC
+BEGIN:VEVENT
+UID:000-gx6d6k@localhost
+SEQUENCE:0
+DTSTAMP:20210403T202539Z
+DTSTART:20210403T202539Z
+SUMMARY:Test Event
+END:VEVENT
+END:VCALENDAR
+
+u_id TEST
+appt_id TEXT
+start DATE object
+end DATE object
+timezone STRING
+summary STRING
+location STRING
+geo Object geo
+{
+    lat: number,
+    lon: number
+}
+organizer Object organizer
+{
+    name: STRING
+    email: STRING
+}
+
+u_id TEXT NOT NULL
+appt_id TEXT PRIMARY KEY NOT NULL
+start TEXT NOT NULL
+end TEXT
+timezone TEXT
+summary TEXT
+location TEXT
+geo TEXT
+organizer TEXT
+FOREIGN KEY (u_id)
+REFERENCES authentication (u_id)
+ON UPDATE CASCADE
+ON DELETE CASCADE

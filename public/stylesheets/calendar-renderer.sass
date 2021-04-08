@@ -1,0 +1,55 @@
+$randomColor: rgb(random(255), random(255), random(255))
+
+.calendar-container
+  display: flex
+  flex-direction: column
+  div
+    display: flex
+
+.dates-container
+  flex-direction: column
+  h2
+    display: flex
+    justify-content: center
+
+.dates-header
+  div
+    justify-content: center
+    min-width: 70px
+
+.dates-body
+  div
+    border: 1px solid black
+    margin-top: -1px
+    margin-left: -1px
+    height: 14.3vh
+    min-height: 70px
+    max-height: 14.3vw
+    min-width: 70px
+    span
+      margin: 0.5rem 0 0 0.5rem
+
+.views-container
+  justify-content: flex-end
+  align-items: center
+  label
+    margin-right: 0.75rem
+
+.flex-row
+  flex-direction: row
+  width: 85%
+  margin: auto
+  div
+    flex-basis: 14.3vw
+
+.dates-body-appointments
+  list-style-type: none
+  padding: 0 0.5rem 0 0.3rem
+  white-space: nowrap
+  overflow: hidden
+  li
+    overflow: hidden
+    border: 1px solid black
+    border-radius: 3px
+    margin: 1px 0
+    background-color: $randomColor
