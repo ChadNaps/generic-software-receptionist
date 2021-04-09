@@ -1,25 +1,52 @@
-$randomColor: rgb(random(255), random(255), random(255))
+// Dark Mode
+$background: black
+$invertPerc: 85%
 
+body
+  background-color: $background
+  color: invert($background, $invertPerc)
+
+// Custom colors
+$darkteal: rgb(0, 128, 128)
+$darkorange: rgb(204, 82, 0)
+
+// Number of appointments to be rendered, this is needed for
+// randomizing the colors of the appointment <li>s
+$numOfAppts: 6
+
+// Variables for appointment <li>s
+$apptColors: green, $darkorange, mediumvioletred, purple, $darkteal
+/* If $apptColors has more colors than $numOfApptColors, the output will
+   be looped according to the value in $numOfApptColors */
+$numOfApptColors: 5
+
+// Entire calendar container
 .calendar-container
   display: flex
   flex-direction: column
   div
     display: flex
 
+// Title for calendar
 .dates-container
   flex-direction: column
   h2
     display: flex
     justify-content: center
 
+// Sun - Sat headers
 .dates-header
+  margin-bottom: 5px
   div
     justify-content: center
     min-width: 70px
+    font-weight: bold
 
+
+// Date cells in month view
 .dates-body
   div
-    border: 1px solid black
+    border: 1px solid invert($background, $invertPerc)
     margin-top: -1px
     margin-left: -1px
     height: 14.3vh
@@ -27,29 +54,50 @@ $randomColor: rgb(random(255), random(255), random(255))
     max-height: 14.3vw
     min-width: 70px
     span
+      text-align: center
+      flex-direction: column
+      justify-content: center
+      display: flex
+      height: 20px
+      width: 20px
       margin: 0.5rem 0 0 0.5rem
+      font-weight: bold
+    .today
+      background: scale-color(blue, $lightness: -10%)
+      border: 1px solid scale-color(blue, $lightness: 10%)
+      border-radius: 100%
 
+// Buttons to toggle from Week to Month view
 .views-container
   justify-content: flex-end
   align-items: center
   label
     margin-right: 0.75rem
 
+// Horizontal spacing class
 .flex-row
   flex-direction: row
   width: 85%
-  margin: auto
+  margin-left: auto
+  margin-right: auto
   div
     flex-basis: 14.3vw
 
+// Appointment items
 .dates-body-appointments
   list-style-type: none
-  padding: 0 0.5rem 0 0.3rem
+  padding: 0 0.6rem 0 0.4rem
   white-space: nowrap
   overflow: hidden
   li
     overflow: hidden
-    border: 1px solid black
-    border-radius: 3px
-    margin: 1px 0
-    background-color: $randomColor
+    margin: 5px 0
+
+// Colors for appointment <li>s
+@for $child from 1 through $numOfAppts
+  .dates-body-appointments
+    li:nth-of-type(#{$child})
+      color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
+      background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)
+      border: 1px solid scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: -10%)
+      border-radius: 4px
