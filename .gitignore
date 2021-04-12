@@ -2,6 +2,7 @@
 TODO.txt
 models/users.db
 public/stylesheets/*.css*
+public/stylesheets/calendar-renderer/*.css*
 
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,node,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,node,git
