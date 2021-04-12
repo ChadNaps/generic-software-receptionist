@@ -1,1 +1,56 @@
+// Month View
 @use 'calendar-renderer/calendar-renderer-month-view'
+
+// Week View
+@use 'calendar-renderer/calendar-renderer-week-view'
+
+// Global CSS //
+
+// Global Variables
+@import "calendar-renderer/calendar-renderer-global-variables"
+
+// Base styles
+body
+  @media (prefers-color-scheme: dark)
+    background-color: $background-dark-mode
+    color: invert($background-dark-mode, $invertPerc)
+  @media (prefers-color-scheme: light)
+    background-color: $background-light-mode
+    color: black
+
+ul
+  padding-inline-start: 0
+  margin-block-start: 0
+  margin-block-end: 0
+  list-style-type: none
+
+// Colors for appointment <li>s
+@for $child from 1 through $numOfAppts
+  .colorize-appointments
+    li:nth-of-type(#{$child})
+      color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
+      background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)
+      border: 1px solid scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: -10%)
+      border-radius: 4px
+
+// Horizontal spacing class
+.layout-flex-row
+  flex-direction: row
+  width: 85%
+  margin-left: auto
+  margin-right: auto
+  div
+    flex-basis: 14.3vw
+
+// Sun - Sat headers
+.dates-header
+  margin: .5rem auto
+  font-weight: bold
+  list-style-type: none
+  display: flex
+  li
+    text-align: center
+    flex-basis: 14.3vw
+
+.is-hidden
+  display: none !important
