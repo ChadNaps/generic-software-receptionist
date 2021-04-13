@@ -1,2 +1,33 @@
 // Global Variables
 @import "calendar-renderer-global-variables"
+
+// Title and nav for month view of calendar
+.week-dates-container
+  flex-direction: column
+  .week-dates-title
+    display: inherit
+    justify-content: center
+  .week-dates-nav
+    display: flex
+    li
+      flex-basis: 33vw
+    #week-dates-nav-prev
+      text-align: left
+    #week-dates-nav-current
+      text-align: center
+    #week-dates-nav-next
+      text-align: right
+
+.week-dates-body
+  div
+    flex-direction: column
+    span
+      text-align: center
+
+.week-dates-body-appointments
+  flex-direction: column
+  li
+    overflow: hidden
+    margin: 0.1em 0
+    min-height: 1.1em
+

@@ -1,10 +1,6 @@
-// Month View
+// Month and Week Views
 @use 'calendar-renderer/calendar-renderer-month-view'
-
-// Week View
 @use 'calendar-renderer/calendar-renderer-week-view'
-
-// Global CSS //
 
 // Global Variables
 @import "calendar-renderer/calendar-renderer-global-variables"
@@ -20,9 +16,20 @@ body
 
 ul
   padding-inline-start: 0
-  margin-block-start: 0
-  margin-block-end: 0
   list-style-type: none
+  display: flex
+
+div
+  display: flex
+
+// Entire calendar container
+.calendar-container
+  display: flex
+  flex-direction: column
+  .month-dates-body
+    display: flex
+  .views-container
+    display: flex
 
 // Colors for appointment <li>s
 @for $child from 1 through $numOfAppts
