@@ -6,6 +6,25 @@
 @import "calendar-renderer/calendar-renderer-global-variables"
 
 // Base styles
+// Boilerplate
+*,
+*::after,
+*::before
+  margin: 0
+  padding: 0
+  box-sizing: inherit
+
+html
+  font-size: 62.5%
+
+body
+  font-family: "Lato", sans-serif
+  font-weight: 400
+  font-size: $font-size
+  line-height: 1.7
+  padding: 3rem
+  box-sizing: border-box
+
 body
   @media (prefers-color-scheme: dark)
     background-color: $background-dark-mode
@@ -21,6 +40,14 @@ ul
 
 div
   display: flex
+
+button
+  padding: 0 0.5rem
+  font-family: "Lato", sans-serif
+  font-weight: 400
+  font-size: $font-size
+  line-height: 1.7
+  box-sizing: border-box
 
 // Entire calendar container
 .calendar-container
@@ -43,7 +70,7 @@ div
 // Horizontal spacing class
 .layout-flex-row
   flex-direction: row
-  width: 85%
+  width: 85vw
   margin-left: auto
   margin-right: auto
   div
