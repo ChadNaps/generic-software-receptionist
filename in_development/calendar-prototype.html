@@ -9,36 +9,42 @@
 
 <div class="calendar-container">
   <div class="views-container">
-    <label for="views">Views:</label>
+    <label for="views" id="views-label">Views:</label>
     <div id="views">
-      <button>Week</button>
-      <button>Month</button>
+      <button id="button-view-week">Week</button>
+      <button id="button-view-month">Month</button>
     </div>
   </div>
-  <div class="dates-container">
-    <h2>Schedule for Test Person:</h2>
-    <div class="flex-row dates-header">
-      <div>Sunday</div>
-      <div>Monday</div>
-      <div>Tuesday</div>
-      <div>Wednesday</div>
-      <div>Thursday</div>
-      <div>Friday</div>
-      <div>Saturday</div>
+  <!-- Month View -->
+  <div class="month-dates-container is-hidden">
+    <h2 class="month-dates-title">Schedule for Test Person:</h2>
+    <ul class="layout-flex-row month-dates-nav">
+      <li id="month-dates-nav-prev"><button><< Last Month</button></li>
+      <li id="month-dates-nav-current">Current Month</li>
+      <li id="month-dates-nav-next"><button>Next Month 	>></button></li>
+    </ul>
+    <ul class="layout-flex-row dates-header">
+      <li>Sunday</li>
+      <li>Monday</li>
+      <li>Tuesday</li>
+      <li>Wednesday</li>
+      <li>Thursday</li>
+      <li>Friday</li>
+      <li>Saturday</li>
+    </ul>
+    <div class="layout-flex-row month-dates-body">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div><span>1</span></div>
     </div>
-    <div class="flex-row dates-body">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div><span class="today">1</span></div>
-    </div>
-    <div class="flex-row dates-body">
+    <div class="layout-flex-row month-dates-body">
       <div>
         <span>2</span>
-        <ul class="dates-body-appointments">
+        <ul class="month-dates-body-appointments colorize-appointments">
           <li>HH:MM - Name of Person Who Has Appointment</li>
           <li>HH:MM - Name of Person Who Has Appointment</li>
           <li>HH:MM - Name of Person Who Has Appointment</li>
@@ -54,7 +60,7 @@
       <div><span>7</span></div>
       <div><span>8</span></div>
     </div>
-    <div class="flex-row dates-body">
+    <div class="layout-flex-row month-dates-body">
       <div><span>9</span></div>
       <div><span>10</span></div>
       <div><span>11</span></div>
@@ -63,7 +69,7 @@
       <div><span>14</span></div>
       <div><span>15</span></div>
     </div>
-    <div class="flex-row dates-body">
+    <div class="layout-flex-row month-dates-body">
       <div><span>16</span></div>
       <div><span>17</span></div>
       <div><span>18</span></div>
@@ -72,16 +78,16 @@
       <div><span>21</span></div>
       <div><span>22</span></div>
     </div>
-    <div class="flex-row dates-body">
+    <div class="layout-flex-row month-dates-body">
       <div><span>23</span></div>
       <div><span>24</span></div>
       <div><span>25</span></div>
-      <div><span>26</span></div>
+      <div><span class="today">26</span></div>
       <div><span>27</span></div>
       <div><span>28</span></div>
       <div><span>29</span></div>
     </div>
-    <div class="flex-row dates-body">
+    <div class="layout-flex-row month-dates-body">
       <div><span>30</span></div>
       <div><span>31</span></div>
       <div></div>
@@ -89,6 +95,73 @@
       <div></div>
       <div></div>
       <div></div>
+    </div>
+  </div>
+  <!-- Week View -->
+  <div class="week-dates-container">
+    <h2 class="week-dates-title">Schedule for Test Person:</h2>
+    <ul class="layout-flex-row week-dates-nav">
+      <li id="week-dates-nav-prev"><button><< Last Week</button></li>
+      <li id="week-dates-nav-current">Current Week</li>
+      <li id="week-dates-nav-next"><button>Next Week >></button></li>
+    </ul>
+    <ul class="layout-flex-row dates-header">
+      <li></li>
+      <li>Sunday</li>
+      <li>Monday</li>
+      <li>Tuesday</li>
+      <li>Wednesday</li>
+      <li>Thursday</li>
+      <li>Friday</li>
+      <li>Saturday</li>
+    </ul>
+    <div class="layout-flex-row week-dates-body">
+      <div id="week-dates-body-times">
+        <span>Time</span>
+        <ul>
+          <li>12:00 AM</li>
+          <li>1:00 AM</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div><span>16</span></div>
+      <div><span>17</span></div>
+      <div><span class="today">18</span></div>
+      <div>
+        <span>19</span>
+        <ul class="week-dates-body-appointments colorize-appointments">
+          <li>HH:MM - Name of Person Who Has Appointment</li>
+          <li>HH:MM - Name of Person Who Has Appointment</li>
+          <li>HH:MM - Name of Person Who Has Appointment</li>
+          <li>HH:MM - Name of Person Who Has Appointment</li>
+          <li>HH:MM - Name of Person Who Has Appointment</li>
+          <li>HH:MM - Name of Person Who Has Appointment</li>
+        </ul>
+      </div>
+      <div><span>20</span></div>
+      <div><span>21</span></div>
+      <div><span>22</span></div>
     </div>
   </div>
 </div>

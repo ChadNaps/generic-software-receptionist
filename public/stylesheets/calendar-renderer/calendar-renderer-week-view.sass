@@ -19,15 +19,30 @@
       text-align: right
 
 .week-dates-body
+  div:first-of-type
+    border: none
   div
+    @media (prefers-color-scheme: dark)
+      border: 1px solid invert($background-dark-mode, $invertPerc)
+    @media (prefers-color-scheme: light)
+      border: 1px solid black
+    margin-left: -1px
     flex-direction: column
+    min-height: 1vh
     span
       text-align: center
+
+#week-dates-body-times
+  flex-shrink: 2
+  ul
+    flex-direction: column
+    li
+      min-height: 10vh
+      border-top: 1px dashed white
+      border-bottom: 1px dashed white
+      margin-top: -1px
 
 .week-dates-body-appointments
   flex-direction: column
   li
-    overflow: hidden
     margin: 0.1em 0
-    min-height: 1.1em
-
