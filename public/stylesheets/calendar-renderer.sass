@@ -58,14 +58,6 @@ button
   .views-container
     display: flex
 
-// Colors for appointment <li>s
-@for $child from 1 through $numOfAppts
-  .colorize-appointments
-    li:nth-of-type(#{$child})
-      color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
-      background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)
-      border: 1px solid scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: -10%)
-      border-radius: 4px
 
 // Horizontal spacing class
 .layout-flex-row
@@ -86,5 +78,10 @@ button
     text-align: center
     flex-basis: 14.3vw
 
+// Sun - Sat headers for week view, couldn't put it in week view sass
+.week-dates-header
+  @extend .dates-header
+  li:first-child
+    flex-shrink: 2
 .is-hidden
   display: none !important

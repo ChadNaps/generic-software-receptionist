@@ -1,6 +1,10 @@
 // Global Variables
 @import "calendar-renderer-global-variables"
 
+// Number of appointments to be rendered, this is needed for
+// randomizing the colors of the appointment <li>s
+$numOfAppts: 6
+
 // Buttons to toggle from Week to Month view
 .views-container
   justify-content: flex-end
@@ -45,7 +49,6 @@
       min-width: 1.6em
     .today
       border-radius: 100%
-
       @media (prefers-color-scheme: dark)
         background: scale-color(blue, $lightness: 50%)
         border: 1px solid scale-color(blue, $lightness: 55%)
@@ -67,3 +70,12 @@
     margin: 0.2rem 0
     padding: 0 0.3rem
     min-height: 1.7em
+
+// Colors for appointment <li>s
+@for $child from 1 through $numOfAppts
+  .month-colorize-appointments
+    li:nth-of-type(#{$child})
+      color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
+      background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)
+      border: 1px solid scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: -10%)
+      border-radius: 4px

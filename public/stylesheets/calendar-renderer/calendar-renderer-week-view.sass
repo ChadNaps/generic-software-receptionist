@@ -1,6 +1,10 @@
 // Global Variables
 @import "calendar-renderer-global-variables"
 
+// Number of appointments to be rendered, this is needed for
+// randomizing the colors of the appointment <li>s
+$numOfAppts: 48
+
 // Title and nav for month view of calendar
 .week-dates-container
   flex-direction: column
@@ -28,21 +32,61 @@
       border: 1px solid black
     margin-left: -1px
     flex-direction: column
-    min-height: 1vh
+    position: relative
     span
       text-align: center
+    *
+      min-height: 1.6em
+
 
 #week-dates-body-times
   flex-shrink: 2
+  span
+    padding-top: 1px
   ul
     flex-direction: column
     li
-      min-height: 10vh
+      height: 10vh
       border-top: 1px dashed white
-      border-bottom: 1px dashed white
-      margin-top: -1px
+
+$apptMins: 2 * 60
 
 .week-dates-body-appointments
+  display: block
+  position: absolute
+  width: 100%
+  overflow: hidden
+  height: 100%
+  li:hover
+    overflow: initial
+    height: fit-content
+  li
+    overflow: hidden
+    height: 0.166667vh * $apptMins // 0.166667vh per min
+    padding-left: 0.5rem
+    padding-right: 0.5rem
+
+.week-dates-body-appointments
+  li:first-of-type
+    margin-top: 1.66667em
+
+.week-dates-body-time-borders
   flex-direction: column
   li
-    margin: 0.1em 0
+    height: 10vh
+    border-top: 1px dashed scale-color(white, $lightness: -60%)
+
+.today
+  @media (prefers-color-scheme: dark)
+    background: scale-color(blue, $lightness: 50%)
+    color: $background-dark-mode
+  @media (prefers-color-scheme: light)
+    background: blue
+    color: scale-color(blue, $lightness: 90%)
+
+// Colors for appointment <li>s
+@for $child from 1 through $numOfAppts
+  .week-colorize-appointments
+    li.appt:nth-of-type(#{$child})
+      color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
+      background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)
