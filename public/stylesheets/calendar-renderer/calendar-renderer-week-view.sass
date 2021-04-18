@@ -25,7 +25,7 @@ $numOfAppts: 48
 .week-dates-body
   div:first-of-type
     border: none
-  div
+  > div
     @media (prefers-color-scheme: dark)
       border: 1px solid invert($background-dark-mode, $invertPerc)
     @media (prefers-color-scheme: light)
@@ -37,7 +37,7 @@ $numOfAppts: 48
       text-align: center
     *
       min-height: 1.6em
-
+      //max-height: $cellSizePerMin * 60 * 24
 
 #week-dates-body-times
   flex-shrink: 2
@@ -49,32 +49,35 @@ $numOfAppts: 48
       height: 10vh
       border-top: 1px dashed white
 
-$apptMins: 2 * 60
-
 .week-dates-body-appointments
-  display: block
+  display: flex
   position: absolute
-  width: 100%
-  overflow: hidden
-  height: 100%
-  li:hover
-    overflow: initial
-    height: fit-content
-  li
+  top: 1.66667em
+  right: 0
+  bottom: 0
+  left: 0
+  ul
     overflow: hidden
-    height: 0.166667vh * $apptMins // 0.166667vh per min
-    padding-left: 0.5rem
-    padding-right: 0.5rem
-
-.week-dates-body-appointments
-  li:first-of-type
-    margin-top: 1.66667em
+    height: 100%
+    flex-direction: column
+    li:hover
+      overflow: initial
+      height: fit-content
+      z-index: 1
+    li
+      overflow: hidden
+      padding-left: 0.5rem
+      padding-right: 0.5rem
 
 .week-dates-body-time-borders
   flex-direction: column
   li
     height: 10vh
     border-top: 1px dashed scale-color(white, $lightness: -60%)
+
+// Appointment sizing (apt#, start, duration)
+@include weekApptSchedule(1, 135, 45)
+@include weekApptSchedule(2, 240, 120)
 
 .today
   @media (prefers-color-scheme: dark)
@@ -87,6 +90,6 @@ $apptMins: 2 * 60
 // Colors for appointment <li>s
 @for $child from 1 through $numOfAppts
   .week-colorize-appointments
-    li.appt:nth-of-type(#{$child})
+    li.week-dates-body-appointments-appt:nth-of-type(#{$child})
       color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
       background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)

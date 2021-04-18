@@ -15,3 +15,18 @@ $apptColors: green, $darkorange, mediumvioletred, purple, $darkteal
 //* If $apptColors has more colors than $numOfApptColors, the output will
     be looped according to the value in $numOfApptColors */
 $numOfApptColors: 5
+
+// Cell size
+$cellSizePerMin: 0.166667vh
+
+// Mixin
+// startTimeInMins is how many minutes since 00:00
+@mixin weekApptSchedule($aptNum, $startTimeInMins, $durationInMins)
+  #week-dates-body-appointments-appt#{$aptNum}
+    position: absolute
+
+    // Start time
+    top: $cellSizePerMin * $startTimeInMins
+
+    // Duration
+    bottom: 240 - (($cellSizePerMin * $durationInMins) + ($startTimeInMins * $cellSizePerMin))
