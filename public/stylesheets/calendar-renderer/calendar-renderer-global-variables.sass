@@ -12,21 +12,37 @@ $darkorange: rgb(204, 82, 0)
 
 // Variables for appointment <li>s
 $apptColors: green, $darkorange, mediumvioletred, purple, $darkteal
-//* If $apptColors has more colors than $numOfApptColors, the output will
-    be looped according to the value in $numOfApptColors */
+// If $apptColors has more colors than $numOfApptColors, the output will
+   be looped according to the value in $numOfApptColors
 $numOfApptColors: 5
 
 // Cell size
-$cellSizePerMin: 0.166667vh
+$cellHeight: 7vh
+$cellSizePerMin: $cellHeight * 0.0166667 // 0.0166667 is a random constant that seems to work for scaling. I dunno, I'm not a math wizard.
+$clampMin: 1.66667em
+$clampMax: 4em
+$clampHeight: clamp(#{$clampMin}, #{$cellHeight}, #{$clampMax})
 
-// Mixin
+// Mixins
 // startTimeInMins is how many minutes since 00:00
 @mixin weekApptSchedule($aptNum, $startTimeInMins, $durationInMins)
   #week-dates-body-appointments-appt#{$aptNum}
     position: absolute
+    left: 0
+    right: 0
 
     // Start time
-    top: $cellSizePerMin * $startTimeInMins
+    // clamp min aligns top with smallest possible cell, instead of viewport size
+       clamp scale aligns top relative to viewport size
+       clamp max aligns top with largest possible cell, instead of viewport size
+    top: clamp(#{$clampMin} * (#{$startTimeInMins} / 60), #{$cellSizePerMin} * #{$startTimeInMins}, #{$clampMax} * (#{$startTimeInMins} / 60))
 
     // Duration
-    bottom: 240 - (($cellSizePerMin * $durationInMins) + ($startTimeInMins * $cellSizePerMin))
+    // distance from bottom = total available time slots - (duration of appointment + distance from top appointment starts)
+    // TODO - Refactor this, maybe do it with a function, some variables, maybe a mixin. Something.
+    bottom: clamp((24 * #{$clampMin}) - ((#{$clampMin} * #{$durationInMins} / 60) + (#{$clampMin} * #{$startTimeInMins} / 60)), (24 * #{$cellHeight}) - ((#{$cellSizePerMin} * #{$durationInMins}) + (#{$startTimeInMins} * #{$cellSizePerMin})), (24 * #{$clampMax}) - ((#{$clampMax} * #{$durationInMins} / 60) + (#{$clampMax} * #{$startTimeInMins} / 60)))
+
+// Functions
+@function get-vw($target)
+  $vw-context: (1000 * 0.01) * 1px
+  @return ($target / $vw-context) * 1vw

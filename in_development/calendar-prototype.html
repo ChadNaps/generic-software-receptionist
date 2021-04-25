@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../public/stylesheets/calendar-renderer.css">
+  <link rel="stylesheet" href="/stylesheets/calendar-renderer.css">
   <title>Temp</title>
 </head>
 <body>
@@ -147,7 +147,7 @@
       </div>
       <div>
         <span class="today">16</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>
@@ -176,7 +176,7 @@
       </div>
       <div>
         <span>17</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>
@@ -205,7 +205,7 @@
       </div>
       <div>
         <span>18</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>
@@ -234,7 +234,7 @@
       </div>
       <div>
         <span>19</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>
@@ -260,19 +260,21 @@
           <li></li>
           <li></li>
         </ul>
-        <ul class="week-dates-body-appointments week-colorize-appointments">
-          <li class="appt">HH:MM - Name of Person Who Has Appointment
-            and if we put too much text in here, causing it to overflow
-            then what happens? Because we can have SO many details about
-            any given appointment, it's important to know, you know?</li>
-          <li class="appt">
-            Okay, how about a second appointment?
-          </li>
-        </ul>
+        <div class="week-dates-body-appointments">
+          <ul class="week-colorize-appointments">
+            <li id="week-dates-body-appointments-appt1">HH:MM - Name of Person Who Has Appointment
+              and if we put too much text in here, causing it to overflow
+              then what happens? Because we can have SO many details about
+              any given appointment, it's important to know, you know?</li>
+            <li id="week-dates-body-appointments-appt2">
+              Okay, how about a second appointment?
+            </li>
+          </ul>
+        </div>
       </div>
       <div>
         <span>20</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>
@@ -301,7 +303,7 @@
       </div>
       <div>
         <span>21</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>
@@ -330,7 +332,7 @@
       </div>
       <div>
         <span>22</span>
-        <ul class="week-dates-body-time-borders week-colorize-appointments">
+        <ul class="week-dates-body-time-borders">
           <li></li>
           <li></li>
           <li></li>

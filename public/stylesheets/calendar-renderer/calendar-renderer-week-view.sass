@@ -35,9 +35,6 @@ $numOfAppts: 48
     position: relative
     span
       text-align: center
-    *
-      min-height: 1.6em
-      //max-height: $cellSizePerMin * 60 * 24
 
 #week-dates-body-times
   flex-shrink: 2
@@ -46,7 +43,7 @@ $numOfAppts: 48
   ul
     flex-direction: column
     li
-      height: 10vh
+      height: $clampHeight
       border-top: 1px dashed white
 
 .week-dates-body-appointments
@@ -72,11 +69,11 @@ $numOfAppts: 48
 .week-dates-body-time-borders
   flex-direction: column
   li
-    height: 10vh
+    height: $clampHeight
     border-top: 1px dashed scale-color(white, $lightness: -60%)
 
 // Appointment sizing (apt#, start, duration)
-@include weekApptSchedule(1, 135, 45)
+@include weekApptSchedule(1, 120, 45)
 @include weekApptSchedule(2, 240, 120)
 
 .today
@@ -90,6 +87,6 @@ $numOfAppts: 48
 // Colors for appointment <li>s
 @for $child from 1 through $numOfAppts
   .week-colorize-appointments
-    li.week-dates-body-appointments-appt:nth-of-type(#{$child})
+    li:nth-of-type(#{$child})
       color: scale-color(nth($apptColors, ($child - 1) % $numOfApptColors + 1), $lightness: 90%)
       background-color: nth($apptColors, ($child - 1) % $numOfApptColors + 1)
