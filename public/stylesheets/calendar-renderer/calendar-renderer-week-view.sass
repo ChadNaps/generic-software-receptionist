@@ -53,10 +53,6 @@
     overflow: hidden
     height: 100%
     flex-direction: column
-    li:hover
-      overflow: initial
-      height: fit-content
-      z-index: 1
     li
       overflow: hidden
       padding-left: 0.5rem
@@ -69,7 +65,7 @@
     border-top: 1px dashed scale-color(white, $lightness: -60%)
 
 // Appointment sizing (apt#, start, duration)
-@include weekApptSchedule(1, 120, 45)
+@include weekApptSchedule(1, 135, 45)
 @include weekApptSchedule(2, 240, 120)
 
 .today
