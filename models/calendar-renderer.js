@@ -1,7 +1,7 @@
 /**
  * Class Rendering a Calendar.
  */
-module.exports = class CalRenderer {
+/*module.exports = */class CalRenderer {
     /**
      * Create a calendar representing a specific month.
      *
@@ -17,9 +17,15 @@ module.exports = class CalRenderer {
     // Functions intended to be public
     renderCalendar() {
         // TODO
+        /*
+        * What do I mean by this?
+        * I need to generate an html partial containing the structure of the calendar to return to the client.
+        */
+
+        return "Render something!!!";
     }
 
-    // Functions intended to be private
+    // Functions intended to be private.
     /**
      * Finds the Date object representing the first day of the month. If no arguments are provided,
      * the current month and year are checked.
@@ -143,3 +149,10 @@ module.exports = class CalRenderer {
         this.daysInMonth = this.daysThisMonth(year, month);
     }
 }
+
+const testCal = new CalRenderer();
+
+console.log(`First date: ${testCal.getFirstDate()}`);
+console.log(`Last date: ${testCal.getLastDate()}`);
+console.log(`Days: ${testCal.getDaysThisMonth()}`);
+console.log(`First day is: ${testCal.getDay()}`);
