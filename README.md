@@ -1,10 +1,14 @@
 # Generic Software Receptionist
 
+**There is currently no stable release of this project**
+
 ## QuickStart:
 1. Download and install [node.js](https://nodejs.org/en/download/).
 2. Navigate to downloaded generic-software-receptionist folder.
 3. Start web server by typing `npm start`.
 4. Default port is 3000.
+
+---
 
 ## Purpose:
 This is the codebase for a web application created for anyone's general use in order to facilitate the automation of scheduling, news, and potentially billing or other features as time permits for a sole proprietor.
