@@ -7,7 +7,7 @@
 4. Default port is 3000.
 
 ## Purpose:
-This is the codebase for a web application created for anyone's general use in order to facilitate the automation of scheduling, news, and potentially billing or other features as time permits.
+This is the codebase for a web application created for anyone's general use in order to facilitate the automation of scheduling, news, and potentially billing or other features as time permits for a sole proprietor.
 
 ## Mandatory Features:
 * Scheduling Integration
