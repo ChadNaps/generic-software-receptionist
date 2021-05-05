@@ -1,4 +1,6 @@
 # Custom ignores
+.vs
+.vscode
 TODO.txt
 models/users.db
 public/stylesheets/*.css*
