@@ -20,6 +20,7 @@
     "uniqid": "^5.3.0"
   },
   "devDependencies": {
-    "express-session": "^1.17.1"
+    "express-session": "^1.17.1",
+    "hosted-git-info": ">=2.8.9"
   }
 }
