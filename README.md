@@ -5,8 +5,9 @@
 ## QuickStart:
 1. Download and install [node.js](https://nodejs.org/en/download/).
 2. Navigate to downloaded generic-software-receptionist folder.
-3. Start web server by typing `npm start`.
-4. Default port is 3000.
+3. Install dependancies with `npm install`.
+4. Start web server by typing `npm start`.
+5. Default port is 3000.
 
 ---
 
