@@ -153,6 +153,7 @@ app.use(sassMiddleware({
     sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'in_development')));
 // FIXME - Make better secret
 app.use(session({resave: false, saveUninitialized: true, secret: "badSecret"}));
 app.use((req, res, next) => {
