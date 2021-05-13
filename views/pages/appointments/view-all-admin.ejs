@@ -1,6 +1,9 @@
 <%- include('../../partials/header', { title: title }) %>
 <%- include('../../partials/navbar') %>
 
-<h3>Appointment Data Here...</h3>
+<h3>Appointments:</h3>
+<% for (const entry of cal) { %>
+<%= entry.start() %> <br>
+<% } %>
 
 <%- include('../../partials/footer') %>
