@@ -2,6 +2,10 @@ const express = require('express');
 const apptHelper = require('../models/appointments');
 const router = express.Router();
 
+router.get('/test', (req, res) => {
+    res.sendFile('C:/Users/nappe/WebstormProjects/generic-software-receptionist/in_development/calendar-prototype.html');
+});
+
 router.get('/', (req, res, next) => {
     // https://www.npmjs.com/package/ical-generator
 
