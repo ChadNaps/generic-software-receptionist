@@ -6,8 +6,9 @@
 1. Download and install [node.js](https://nodejs.org/en/download/).
 2. Navigate to downloaded generic-software-receptionist folder.
 3. Install dependancies with `npm install`.
-4. Start web server by typing `npm start`.
-5. Default port is 3000.
+5. Compile all sass files in `public/stylesheets` and `public/stylesheets/calendar-renderer` with your favorite sass compiler.
+6. Start web server by typing `npm start`.
+7. Default port is 3000.
 
 ---
 
