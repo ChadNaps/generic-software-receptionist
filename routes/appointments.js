@@ -21,6 +21,10 @@ router.get('/', (req, res, next) => {
         timezone: "Etc/UTC"
     });
 
+    // Temporarily used to create events
+    tempEvent = cal.createEvent();
+    apptHelper.create(req.app.locals.db, "admin", tempEvent, req);
+
     if (req.app.locals.role === "admin") {
         // Load all events from DB
         apptHelper.load(req.app.locals.db, "admin")

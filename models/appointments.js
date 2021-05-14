@@ -117,14 +117,14 @@ module.exports = {
                 iCal.$geo = JSON.stringify(event.geo);
                 iCal.$organizer = JSON.stringify(event.organizer);
 
-                // Insert event into database
-                /*db.run(insertQuery, iCal, (err) => {
+                // Insert event into database - Uncomment to add events to the db during development
+                db.run(insertQuery, iCal, (err) => {
                     if (err) {
                         console.error(err.message);
                     } else {
                         succeeded = true;
                     }
-                });*/
+                });
             }
         });
         return succeeded;
