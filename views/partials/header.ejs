@@ -33,8 +33,6 @@
                     <% for (let elem in locals[item]) { %>
                         <% if (typeof locals[item][elem] === "string" || typeof locals[item][elem] === "boolean" || typeof locals[item][elem] === "number") { %>
                             ----<%= elem %>: <%= locals[item][elem] %> <br>
-                        <% } else if (typeof locals[item][elem] === "object") { %>
-                            <!-- ----<%= elem %>: <%= JSON.stringify(locals[item][elem]) %> <br> -->
                         <% } %>
                     <% } %>
                 <% } %>
